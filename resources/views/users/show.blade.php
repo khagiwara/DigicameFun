@@ -17,6 +17,7 @@
                 <li><a href="#">Microposts</a></li>
                 <li><a href="#">Followings</a></li>
                 <li><a href="#">Followers</a></li>
+                <li><a href="{{ route('users.profile', ['id' => $user->id]) }}">Profile</a></li>
             </ul>
         </div>
     </div>

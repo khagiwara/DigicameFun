@@ -55,11 +55,29 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        print_r($user );
 
         return view('users.show', [
             'user' => $user,
         ]);
+
+    }
+    public function profile($id)
+    {
+
+        $user = User::find($id);
+/*
+        echo "id=$id<br>";
+        echo "<pre>";
+        print_r($user);
+        echo "</pre>";
+*/
+
+	
+        return view('users.profile', [
+            'user' => $user,
+        ]);
+
+
 
     }
     /**

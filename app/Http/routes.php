@@ -18,6 +18,7 @@ Route::get('/', function () {
 // ユーザ登録
 Route::get('signup', 'Auth\AuthController@getRegister')->name('signup.get');
 Route::post('signup', 'Auth\AuthController@postRegister')->name('signup.post');
+Route::post('update', 'Auth\AuthController@postRegister')->name('signup.post');
 
 // ログイン認証
 Route::get('login', 'Auth\AuthController@getLogin')->name('login.get');
@@ -26,4 +27,17 @@ Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+    Route::get('profile', 'UsersController@index');
+    Route::get('profile/{id}', 'UsersController@profile')->name('users.profile');
+    
+     Route::group(['prefix' => 'users/{id}'], function () { 
+        Route::post('follow', 'UserFollowController@store')->name('users.follow');
+        Route::delete('unfollow', 'UserFollowController@destroy')->name('users.unfollow');
+        Route::get('followings', 'UsersController@followings')->name('users.followings');
+        Route::get('followers', 'UsersController@followers')->name('users.followers');
+    });       
+    
+    
+    
+    
 });
