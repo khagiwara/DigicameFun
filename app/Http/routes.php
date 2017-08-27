@@ -29,7 +29,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
     Route::get('profile', 'UsersController@index');
     Route::get('profile/{id}', 'UsersController@profile')->name('users.profile');
-    
+
+    Route::resource('messages', 'MessagesController');
+    Route::get("list",	'MessagesController@messagelist' )->name('message.list');
+    Route::post('upload',"MessagesController@upload")->name('upload.post');
+
      Route::group(['prefix' => 'users/{id}'], function () { 
         Route::post('follow', 'UserFollowController@store')->name('users.follow');
         Route::delete('unfollow', 'UserFollowController@destroy')->name('users.unfollow');
@@ -37,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('followers', 'UsersController@followers')->name('users.followers');
     });       
     
+    Route::resource('coment', 'ComentsController', ['only' => ['store', 'destroy']]);
     
     
     

@@ -1,37 +1,48 @@
+messagetile.blade.php
+
+
 @extends('layouts.app')
 
 @section('content')
     @if (Auth::check())
     <div>welcom.blade.php</div>
     
-        <?php $user = Auth::user(); ?>
-        {{ $user->name }}
+        <?php $user = Auth::user(); 
+	        $i=0;
+        ?>
         
-        
-        <?php
-        
-		echo "<div class=\"container\">\n",
-			"<div class=\"row\">\n";
-		for( $i=1; $i<30; $i++ ){
-			?>		
+      @if (count($messages) > 0)
+ 			<div class="container">
+			<div class="row">
+			@foreach ($messages as $message)
+            <?php $i++; ?>    
+                
 	    	<div class="item">
 	                <div class="col-md-3 col-sm-4 col-xs-12">
 	                    <div class="panel panel-default">
 	                        <div class="panel-heading text-center">
-		                        <a href="/index.php/items/<?php echo $i; ?>"><img src="/image/<?php echo $i; ?>.jpg" alt="" class="itemfit"></a>
+		                        <a href="messages/{{ $message->id }}"><img src="{{ $message->imgpath }}" alt="" class="itemfit"></a>
 	                        </div>
 	                        <div class="panel-body">
 	                            <p class="item-date">2017/08/23</p>
-	                            <p class="item-title"><a href="/index.php/items/<?php echo $i; ?>">画像のタイトル<?php printf( "%03d", $i ); ?></a></p>
-	                            <p class="item-title">ユーザー<?php printf( "%03d",rand(1,100) % 5 +1 ); ?>の名前</p>
+	                            <p class="item-title"><a href="messages/{{ $message->id }}">{{ $message->title }}</a></p>
+	                            <p class="item-title">{{ $message->name }}</p>
 	                        </div>
 	                    </div>
 	                </div>
-	            </div>
-			<?php		
-		}	
-		echo "</div>\n",
-			"</div>\n";	
+	        </div>
+
+                
+
+                
+            @endforeach
+			</div></div>
+    @endif      
+        
+        
+        
+        
+
         
         
         
