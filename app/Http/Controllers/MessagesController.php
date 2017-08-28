@@ -88,6 +88,8 @@ class MessagesController extends Controller
             'file' => [
                 // 必須
                 'required',
+                'mimes:jpeg,bmp,png',
+                
                 // アップロードされたファイルであること
    //             'file',
                 // 最小縦横120px 最大縦横400px
@@ -187,7 +189,20 @@ print_r($request["file"] );
     {
         echo "<div>MessagesController show</div>";
         
-        $message = Message::find($id);
+        $message = 	// Message::find($id);
+         \DB::table('messages')
+            ->join('users','messages.user_id', '=', 'users.id')
+            ->select('messages.*', 'users.name')
+            ->where('messages.id', $id )   
+            ->get();        
+
+/*
+echo "<pre>";
+echo "id=$id<br>";
+ print_r( $message ) ;
+echo "</pre>";
+*/
+
         $coments =
         \DB::table('coments')
             ->join('users','coments.coment_user_id', '=', 'users.id')
@@ -195,10 +210,12 @@ print_r($request["file"] );
             ->where('message_id', $id )   
             ->orderby('updated_at','desc')         
             ->get();        
-		return view('messages.show', [
-            'message' => $message,
+
+			return view('messages.show', [
+            'message' => $message[0],
             'coments' => $coments,
         ]);   
+
     
         
         
