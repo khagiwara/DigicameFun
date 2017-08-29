@@ -52,7 +52,7 @@
 	                    </button>
 	                </div>
 					<!-- ------------------------------------------------ -->
-	               <input class="btn btn-primary btn-block" type="submit" value="お気に入り">
+					@include('message_favarite.favarite_button', ['user' => $user])
 	            </div>
 	        </aside>
 	        <div class="col-xs-7">
@@ -71,9 +71,21 @@
 							<div class="comment mt5px"><b>{{ $message->title }}</b></div>
 							<p>{{ $message->message }}</p>
 						</div>
-						<div style="width: 200px">
-		        			<button type="button" class="btn btn-warning btn-xs pull-right">フォロー/アンフォロー</button> 
-							<button type="button" class="btn btn-success btn-xs">削除</button> 
+						<div>							
+							@include('user_follow.follow_button', ['user' => $user])
+							
+							
+                @if (Auth::user()->id == $message->user_id)
+                    {!! Form::open(['route' => ['messages.destroy', $message->id], 'method' => 'delete']) !!}
+                        {!! Form::submit('削除', ['class' => 'btn btn-danger btn-xs']) !!}
+                    {!! Form::close() !!}
+                @endif							
+							
+							
+							
+							
+							
+<!-- 							<button type="button" class="btn btn-success btn-xs">削除</button>  -->
 						</div>						
 					</div>
 				</div>
@@ -86,13 +98,13 @@
 						     <h4 class="ml10px" id="coment_count">コメント{{ count($coments) }}件</h4>
 					      </div>
 						  @foreach ($coments as $coment )
-					
 					      <div class="modal-body" id="comentlist">
 					        <div class="row">
 					          <div class="col-md-12">
 					            <div>
 					              <div><a  href="#" class="username">{{ $coment->name }}</a> <span class="commentdate">{{ $coment->updated_at }}</span></div>
 					              <div class="comment mt5px">{{ $coment->coment }}</div>
+					
 					            </div>
 					          </div>
 					        </div>

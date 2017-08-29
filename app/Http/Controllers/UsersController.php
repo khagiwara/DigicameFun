@@ -55,12 +55,39 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-
-        return view('users.show', [
-            'user' => $user,
-        ]);
+        
+        if( \Auth::User()->id === $user->id ){
+            return view('users.show', [
+                'user' => $user,
+            ]);
+        }
 
     }
+    public function avatar($id)
+    {
+        $user = User::find($id);
+        
+        if( \Auth::User()->id === $user->id ){
+            return view('users.avatar', [
+                'user' => $user,
+            ]);
+        }
+
+    }
+    public function messagelist($id){
+        
+
+        $user = User::find($id);
+        
+        if( \Auth::User()->id === $user->id ){
+            return view('users.messagelist', [
+                'user' => $user,
+            ]);
+        }
+        
+    }
+    
+    
     public function profile($id)
     {
 
@@ -74,6 +101,25 @@ class UsersController extends Controller
 
 	
         return view('users.profile', [
+            'user' => $user,
+        ]);
+
+
+
+    }   
+    public function password($id)
+    {
+
+        $user = User::find($id);
+/*
+        echo "id=$id<br>";
+        echo "<pre>";
+        print_r($user);
+        echo "</pre>";
+*/
+
+	
+        return view('users.password', [
             'user' => $user,
         ]);
 

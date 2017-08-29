@@ -2,4 +2,7 @@
 
 @section('content')
     @include('users.users', ['users' => $users])
+
+{!! $users->render() !!}
+
 @endsection

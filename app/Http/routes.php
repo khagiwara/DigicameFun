@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/', 'MessagesController@index');
 // ユーザ登録
 Route::get('signup', 'Auth\AuthController@getRegister')->name('signup.get');
 Route::post('signup', 'Auth\AuthController@postRegister')->name('signup.post');
@@ -27,6 +27,9 @@ Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+    Route::get('password/{id}',   'UsersController@password');
+    Route::get('avatar/{id}',   'UsersController@avatar');
+    Route::get('messagelist/{id}',   'UsersController@messagelist');
     Route::get('profile', 'UsersController@index');
     Route::get('profile/{id}', 'UsersController@profile')->name('users.profile');
 
@@ -35,14 +38,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('upload',"MessagesController@upload")->name('upload.post');
 
      Route::group(['prefix' => 'users/{id}'], function () { 
-        Route::post('follow', 'UserFollowController@store')->name('users.follow');
-        Route::delete('unfollow', 'UserFollowController@destroy')->name('users.unfollow');
+        Route::post('follow', 'UserFollowController@store')->name('user.follow');
+        Route::delete('unfollow', 'UserFollowController@destroy')->name('user.unfollow');
         Route::get('followings', 'UsersController@followings')->name('users.followings');
         Route::get('followers', 'UsersController@followers')->name('users.followers');
     });       
     
     Route::resource('coment', 'ComentsController', ['only' => ['store', 'destroy']]);
     
-    
+     Route::group(['prefix' => 'messages/{id}'], function () { 
+        Route::get('favarite', 'MessageFavoriteControler@index')->name('favorite.list');
+        Route::post('favorite', 'MessageFavoriteControler@store')->name('message.favorite');
+        Route::delete('unfavarite', 'MessageFavoriteControler@destroy')->name('message.unfavarite');
+        Route::get('favaritings', 'MessageFavoriteControler@favaritings')->name('message.favaritings');
+        Route::get('favariteds', 'MessageFavoriteControler@favariteds')->name('message.favariteds');
+    });       
     
 });

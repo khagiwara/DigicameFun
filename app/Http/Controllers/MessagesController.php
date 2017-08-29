@@ -24,6 +24,7 @@ class MessagesController extends Controller
         //
         
         echo "<div>MessagesController index</div>";
+/*
         
         
    //     $messages = Message::all();
@@ -35,13 +36,22 @@ class MessagesController extends Controller
             
             ->get();
         
+      
+*/  
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $messages = $user->feed_messages()->orderBy('created_at', 'desc')->paginate(12);
+            $count_messages = $user->messages()->count();
+            $data = [
+                'user' => $user,
+                'messages' => $messages,
+            ];
+        }
+        return view('messages.messagetile', $data);        
         
         
-        
-        
-		return view('messages.messagetile', [
-            'messages' => $messages,
-        ]);   
+ 
                 
         
     }
@@ -85,10 +95,12 @@ class MessagesController extends Controller
     {
 
         $this->validate($request, [
+	        'title' => 'required|max:255',
+            'message' => 'required|max:255',
             'file' => [
                 // 必須
                 'required',
-                'mimes:jpeg,bmp,png',
+                'mimes:jpeg,png',
                 
                 // アップロードされたファイルであること
    //             'file',
@@ -194,15 +206,14 @@ print_r($request["file"] );
             ->join('users','messages.user_id', '=', 'users.id')
             ->select('messages.*', 'users.name')
             ->where('messages.id', $id )   
-            ->get();        
-
+            ->get();   
+        $user = User::find($message[0]->user_id);
 /*
 echo "<pre>";
 echo "id=$id<br>";
  print_r( $message ) ;
 echo "</pre>";
 */
-
         $coments =
         \DB::table('coments')
             ->join('users','coments.coment_user_id', '=', 'users.id')
@@ -214,6 +225,7 @@ echo "</pre>";
 			return view('messages.show', [
             'message' => $message[0],
             'coments' => $coments,
+            'user'	=> $user,
         ]);   
 
     
@@ -253,6 +265,18 @@ echo "</pre>";
      */
     public function destroy($id)
     {
-        //
-    }
+        echo "public function destroy($id)";
+        $message = Message::find($id);
+        echo "message->user_id=",$message->user_id,"<br>";
+
+		echo "Auth::user()->id=" , \Auth::user()->id;
+
+		if (\Auth::user()->id === $message->user_id) {
+            $message->delete();
+        }
+        
+
+        
+        return redirect('/messages');
+        }
 }
