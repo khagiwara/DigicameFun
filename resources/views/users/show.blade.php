@@ -7,39 +7,81 @@
 
 	<!-- #right ここから -->
 	<div id="right">
-        <div id="wrapper">   
+        <div id="wrapper"> 
+
+        {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'put']) !!}
+
     	    <div id="right_header">
         	<h2>　プロファイル </h2>
         	</div>
             <div class="row uline">
-                <div class="col-xs-3 col-sm-3 usr_title">名前</div>
-                <div class="col-xs-9 col-sm-9 usr_val usr_lineheight">col-sm-5</div>
+                <!--<div class="col-xs-3 col-sm-3 usr_title">名前</div>-->
+                <!--<div class="col-xs-9 col-sm-9 usr_val usr_lineheight">col-sm-5</div>-->
+                
+                <div class="form-group">
+                    {!! Form::label('name', '名前:',['class'	=> 'col-xs-3 col-sm-3 usr_title', 'for' => 'name']) !!}
+                     <div class="col-xs-9 col-sm-9 usr_val usr_lineheight">
+                    {!! Form::text('name', null, ['class' => 'form-control','id' => 'name']) !!}
+                    </div>
+                </div>
             </div>
+                
             <div class="row uline">
-                <div class="col-xs-3 col-sm-3 usr_title">ユーザーネーム</div>
-                <div class="col-xs-9 col-sm-9 usr_val usr_lineheight">col-sm-5</div>
+               <div class="form-group">
+                    {!! Form::label('nickname', 'ニックネーム:',['class'	=> 'col-xs-3 col-sm-3 usr_title', 'for' => 'nickname']) !!}
+                     <div class="col-xs-9 col-sm-9 usr_val usr_lineheight">
+                    {!! Form::text('nickname', null, ['class' => 'form-control','id' => 'nickname']) !!}
+                    </div>
+                </div>
             </div>
+                
             <div class="row uline">
-                <div class="col-xs-3 col-sm-3 usr_title">ウエブサイト</div>
-                <div class="col-xs-9col-sm-9 usr_val usr_lineheight">col-sm-5</div>
+               <div class="form-group">
+                    {!! Form::label('website', 'ウエブサイト:',['class'	=> 'col-xs-3 col-sm-3 usr_title', 'for' => 'website']) !!}
+                     <div class="col-xs-9 col-sm-9 usr_val usr_lineheight">
+                    {!! Form::text('website', null, ['class' => 'form-control','id' => 'website']) !!}
+                    </div>
+                </div>
             </div>
-            <div class="row uline">
-                <div class="col-xs-3 col-sm-3 usr_title">自己紹介</div>
-                <div class="col-xs-9 col-sm-9 usr_val">col-sm-5<br>ccccccccc<br>ddddfdfffffff</div>
+
+            <div class="row uline2">
+               <div class="form-group">
+                    {!! Form::label('aboutme', '自己紹介:',['class'	=> 'col-xs-3 col-sm-3 usr_title', 'for' => 'aboutme']) !!}
+                     <div class="col-xs-9 col-sm-9 usr_val usr_lineheight">
+                    {!! Form::textarea('aboutme', null, ['size' => '30x5','class' => 'form-control','id' => 'aboutme']) !!}
+                    </div>
+                </div>
             </div>
-    
+
              <div class="row uline">
                 <div class="col-xs-3 col-sm-offset-3 col-sm-9 usr_hidden">非公開情報</div>
              </div>
-            <div class="row uline">
-                <div class="col-xs-3 col-sm-3 usr_title">メールアドレス</div>
-                <div class="col-xs-9 col-sm-9 usr_val usr_lineheight">col-sm-5</div>
+             
+             <div class="row uline">
+               <div class="form-group">
+                    {!! Form::label('email', 'メールアドレス:',['class'	=> 'col-xs-3 col-sm-3 usr_title', 'for' => 'email']) !!}
+                     <div class="col-xs-9 col-sm-9 usr_val usr_lineheight">
+                    {!! Form::text('email', null, ['class' => 'form-control','id' => 'email']) !!}
+                    </div>
+                </div>
             </div>
+            
+             <div class="row uline">
+               <div class="form-group">
+                    {!! Form::label('sex', '性別:',['class'	=> 'col-xs-3 col-sm-3 usr_title', 'for' => 'email']) !!}
+                     <div class="col-xs-9 col-sm-9 usr_val usr_lineheight">
+                    {!! Form::select('sex',config('sex'), null, ['class' => 'form-control','id' => 'email']) !!}
+                    </div>
+                </div>
+            </div>             
             <div class="row uline">
-                <div class="col-xs-3 col-sm-3 usr_title">性別</div>
-                <div class="col-xs-9 col-sm-9 usr_val usr_lineheight">col-sm-5</div>
-            </div>
-    	</div>   
+               <div class="form-group">
+                    {!! Form::submit('更新',['class'	=> 'col-xs-3 col-sm-3 btn btn-primary' ]) !!}
+                </div>
+            </div>               
+    	</div>
+    	
+    {!! Form::close() !!}    
 	</div>
 	<!-- #right ここまで -->
 

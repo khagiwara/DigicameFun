@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Message;
 
 class UsersController extends Controller
 {
@@ -78,10 +79,14 @@ class UsersController extends Controller
         
 
         $user = User::find($id);
-        
+        $messages =  $user->messages()->orderBy('created_at', 'desc')->paginate(6);
+
+  
         if( \Auth::User()->id === $user->id ){
             return view('users.messagelist', [
                 'user' => $user,
+                'messages' => $messages
+
             ]);
         }
         
@@ -147,6 +152,22 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user = User::find($id);
+   
+      echo " <div> UserController update( Request, id )</div> ";
+      echo "<pre>";
+
+        $user->name      =   $request->name;  
+        $user->email     =   $request->email;   
+        $user->nickname  =   $request->nickname;
+        $user->website   =   $request->website;
+        $user->aboutme   =   $request->aboutme;  
+        $user->tel       =   $request->tel;   
+        $user->sex       =   $request->sex;  
+        $user->save();
+        return redirect('/messagelist/'. $user->id);         
+
+        
     }
 
     /**
