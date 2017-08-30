@@ -11,23 +11,46 @@
 	<!-- #right ここから -->
 	<div id="right">
         <div id="wrapper">   
+        {!! Form::model($user, ['route' => ['update.passwod', $user->id], 'method' => 'put']) !!}
+
+  
     	    <div id="right_header">
         	<h2>　パスワードの変更 </h2>
             </div>
-            <div class="row uline">
-                <div class="col-xs-4 col-sm-4 usr_title">現在のパスワード</div>
-                <div class="col-xs-8 col-sm-8 usr_val usr_lineheight">col-sm-5</div>
-            </div>
-            <div class="row uline">
-                <div class="col-xs-4 col-sm-4 usr_title">新しいパスワード</div>
-                <div class="col-xs-9 col-sm-8 usr_val usr_lineheight">col-sm-5</div>
-            </div>
-            <div class="row uline">
-                <div class="col-xs-4 col-sm-4 usr_title">新しいパスワードの確認</div>
-                <div class="col-xs-8 col-sm-8 usr_val usr_lineheight">col-sm-5</div>
+             <div class="row uline">
+               <div class="form-group">
+                    {!! Form::label('password', '現在のパスワード:',['class'	=> 'col-xs-4 col-sm-4 usr_title', 'for' => 'password']) !!}
+                     <div class="col-xs-8 col-sm-8" style="padding-top: 10px">
+                    {!! Form::password('password', null, ['class' => 'form-control','id' => 'password']) !!}
+                    </div>
+                </div>
             </div>
             
-    	</div>   
+            
+            <div class="row uline">
+                <div class="form-group">
+                    {!! Form::label('newpassword', '新しいパスワード:',['class'	=> 'col-xs-4 col-sm-4 usr_title', 'for' => 'newpassword']) !!}
+                     <div class="col-xs-8 col-sm-8" style="padding-top: 10px">
+                    {!! Form::password('newpassword', null, ['class' => 'form-control','id' => 'newpassword']) !!}
+                    </div>
+                </div>
+            </div>            
+            
+            <div class="row uline">
+               <div class="form-group">
+                    {!! Form::label('newpassword_confirmation', '新しいパスワード:',['class'	=> 'col-xs-4 col-sm-4 usr_title', 'for' => 'newpassword_confirmation']) !!}
+                     <div class="col-xs-8 col-sm-8" style="padding-top: 10px">
+                    {!! Form::password('newpassword_confirmation', null, ['class' => 'form-control','id' => 'newpassword_confirmation']) !!}
+                    </div>
+                </div>
+            </div> 
+
+            
+             <div class="row uline">
+               <div class="form-group">
+                    {!! Form::submit('更新',['class'	=> 'col-xs-3 col-sm-3 btn btn-primary' ]) !!}
+                </div>
+            </div>  
 	</div>
 	<!-- #right ここまで -->    
 @endsection

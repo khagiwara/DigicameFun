@@ -155,7 +155,7 @@ class UsersController extends Controller
         $user = User::find($id);
    
       echo " <div> UserController update( Request, id )</div> ";
-      echo "<pre>";
+
 
         $user->name      =   $request->name;  
         $user->email     =   $request->email;   
@@ -169,7 +169,29 @@ class UsersController extends Controller
 
         
     }
-
+    public function passwordupdate(Request $request, $id)
+    {
+        //
+        $this->validate($request, [
+          'password' => 'required | same:password',
+          'newpassword' => 'confirmed',
+        ]);
+      
+        $user = User::find($id);
+        
+   
+      echo " <div> UserController passwordupdate( Request, id )</div> ";
+      echo "<pre>";
+      print_r( $user->toArray() );
+        echo $request->password,"<br>";
+        echo $request->newpassword,"<br>";
+        echo $request->newpassword_confirmation,"<br>";
+ 
+      
+      
+            echo "</pre>";
+      
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -27,10 +27,13 @@ Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController');
+    
+    Route::put('password/{id}', 'UsersController@passwordupdate' )->name('update.passwod');
+    
     Route::get('password/{id}',   'UsersController@password');
     Route::get('avatar/{id}',   'UsersController@avatar');
-    Route::get('messagelist/{id}',   'UsersController@messagelist');
-    Route::get('profile', 'UsersController@index');
+    Route::get('messagelist/{id}',  'UsersController@messagelist')->name('messagelist.edit');
+    Route::get('profile',   'UsersController@index');
     Route::get('profile/{id}', 'UsersController@profile')->name('users.profile');
 
     Route::resource('messages', 'MessagesController');

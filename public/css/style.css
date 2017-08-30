@@ -105,11 +105,7 @@ p.item- s a {
 	background-color: skyblue;
 }
 
-/********
-	リスト表示
-********/
 
- object-fit: cover;
 
 
 /****************************
@@ -303,6 +299,12 @@ div.clearfix {
 .lm10 {
     margin-left: 20px;
 }
+
+#right. {
+
+   padding-top: 10px  
+}
+
 
 /********************
 	ダイアログのサイズ
