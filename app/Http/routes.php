@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController');
     
     Route::put('password/{id}', 'UsersController@passwordupdate' )->name('update.passwod');
+    Route::put('avatar/{id}',   'UsersController@avatarstore' )->name('avatar.store');
     
     Route::get('password/{id}',   'UsersController@password');
     Route::get('avatar/{id}',   'UsersController@avatar');

@@ -4,7 +4,7 @@ messagelist.blade.php
 
 @section('content')
     @if (Auth::check())
-    <div>welcom.blade.php</div>
+    <div>messagelis.blade.php</div>
     
         <?php $user = Auth::user(); ?>
         {{ $user->name }}

@@ -5,10 +5,11 @@ messagetile.blade.php
 
 @section('content')
     @if (Auth::check())
-    <div>welcom.blade.php</div>
+    <div>messagetile.blade.php</div>
         
       @if (count($messages) > 0)
  			<div class="container">
+ 			{!! $messages->render() !!}
 			<div class="row">
 			@foreach ($messages as $message)
 			<?php $user = $message->user ?>

@@ -1,7 +1,13 @@
 	<!-- #left ここから -->
 	<div id="left">
         <div id="avatarimage">
-                <img class="media-object img-rounded img-responsive" src="{{ Gravatar::src($user->email, 250) }}" alt="">
+
+    	@if ( $user->path )
+ 		<!--<img class="media-object img-rounded img-responsive" src="{{ $user->path }}" style="width: 250px height: 250; margin: 20px auto;" alt="">   -->
+		<img class="listimg" src="{{ $user->path  }}" alt="" height=250  width=250>
+        @else
+		<img class="media-object img-rounded img-responsive" src="{{ Gravatar::src($user->email, 250) }}" alt="">
+        @endif
         </div>
 		<ul>
                 <li><a href="/users/{{ $user->id }}"><i class="fa fa-address-card-o" aria-hidden="true"></i>　プロファイル</li></a>		    

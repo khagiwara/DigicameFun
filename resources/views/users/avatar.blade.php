@@ -12,44 +12,21 @@
     	    <div id="right_header">
         	<h2>　アバター変更 </h2>
             </div>
-            
-            
-            
-            
-                {!! Form::model($user, ['route' => 'messages.store','class' => 'form-horizontal', 'enctype' => 'multipart/form-data' ]) !!}
-            
+ 
+            {!! Form::model($user, ['route' => ['avatar.store', $user->id], 'method' => 'put', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data' ]) !!}
+            <div class="form-group">
+                {!! Form::label('file', '画像アップロード:',['class'	=> 'col-sm-3 control-label', 'for' => 'file1']) !!}
+ 				<div class="col-sm-9">
+                    {!! Form::file('file', ['class' => 'btn btn-success']) !!}              
+			    </div>
                 <div class="form-group">
-
-      {!! Form::label('file', '画像アップロード:',['class'	=> 'col-sm-3 control-label', 'for' => 'file1']) !!}
- 					<div class="col-sm-9">
-   {!! Form::file('file', ['class' => 'btn btn-success']) !!}              
-					</div>
-
-      
-                
-  <div class="form-group">
-    <div class="col-sm-offset-3 col-sm-9 text-right">
-     {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}
-    </div>
-  </div>             
+                    <div class="col-sm-offset-3 col-sm-9 text-right">
+                    {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}
+                </div>
+            </div>             
             {!! Form::close() !!}            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-
             </div>
-            
-    	</div>   
+        </div>   
 	</div>
 	<!-- #right ここまで -->    
 

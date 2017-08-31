@@ -3,7 +3,13 @@
 @foreach ($users as $user)
     <li class="media profile">
         <div class="media-left">
-            <img class="media-object img-rounded" src="{{ Gravatar::src($user->email, 150) }}" alt="">
+     	@if( $user->path )
+     	    <img src="{{ $user->path  }}" alt="" height=150  width=150>
+        @else
+           <img class="media-object img-rounded" src="{{ Gravatar::src($user->email, 150) }}" alt="">
+        @endif           
+            
+            
         </div>
         <div class="media-body" style="padding: 10px">
             <div>

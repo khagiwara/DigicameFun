@@ -1,6 +1,3 @@
-<div>messages show.blade.php</div>
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -61,7 +58,12 @@
 					// オリジナルメッセージ
 					//--------------------------------------------------- -->
 		        	<div class="media-left" style="padding: 30px;">
-						<img class="media-object img-rounded" src="/image/<?php echo rand(1,17); ?>.png" alt="" width=50>
+				    	@if( $user->path )
+							<img class="media-object img-rounded" src="{{ $user->path }}" alt="" width=50>
+				        @else
+							<img class="media-object img-rounded" src="{{ Gravatar::src($user->email, 250) }}" alt="" width=50>
+						@endif		        		
+						<!--<img class="media-object img-rounded" src="/image/<?php echo rand(1,17); ?>.png" alt="" width=50>-->
 					</div>
 					<div class="media-body">
 						<div>
@@ -72,19 +74,12 @@
 							<p>{{ $message->message }}</p>
 						</div>
 						<div>							
-							@include('user_follow.follow_button', ['user' => $user])
-							
-							
-                @if (Auth::user()->id == $message->user_id)
-                    {!! Form::open(['route' => ['messages.destroy', $message->id], 'method' => 'delete']) !!}
-                        {!! Form::submit('削除', ['class' => 'btn btn-danger btn-xs']) !!}
-                    {!! Form::close() !!}
-                @endif							
-							
-							
-							
-							
-							
+							<!--@include('user_follow.follow_button', ['user' => $user])-->
+			                @if (Auth::user()->id == $message->user_id)
+			                    {!! Form::open(['route' => ['messages.destroy', $message->id], 'method' => 'delete']) !!}
+			                        {!! Form::submit('削除', ['class' => 'btn btn-danger btn-xs']) !!}
+			                    {!! Form::close() !!}
+			                @endif							
 <!-- 							<button type="button" class="btn btn-success btn-xs">削除</button>  -->
 						</div>						
 					</div>

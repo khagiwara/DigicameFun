@@ -134,62 +134,7 @@ class MessagesController extends Controller
      */
     public function upload(Request $request)
     {
-	    global $_FILES;
-	    
-/*
-        $this->validate($request, [
-            'file' => [
-                // 必須
-                'required',
-                // アップロードされたファイルであること
-                'file',
-                // 最小縦横120px 最大縦横400px
-                'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
-            ]
-        ]);
-        
-*/
-echo "<pre>";
-print_r($_FILES );
-print_r(  $request->file('originalName') );
-
-        if ($request->file('file')->isValid([])) {
-           // $filename = $request->file->store('public/avatar');
-
-   echo "public_path=",public_path('avatar'),"<br>";
-
-      echo "originalName=", $request->file('file'),"<br>",
-      "getMimeType=" , $request->file->getMimeType(),"<br>",
-      "getClientMimeType=", $request->file->getClientMimeType(),"<br>",
-      "getClientOriginalName=", $request->file->getClientOriginalName();
-
-             $request->file('file')->move(public_path('avatar'), $request->file->getClientOriginalName());
-     
-      
-      
-      echo "<hr>";
-      
-print_r($request["file"] );
-
-        }
-  echo "</pre>";
-  
-/*
-        if ($request->file('file')->isValid([])) {
-            $filename = $request->file->store('public/avatar');
-
-            $user = User::find(auth()->id());
-            $user->avatar_filename = basename($filename);
-            $user->save();
-
-            return redirect('/home')->with('success', '保存しました。');
-        } else {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
-        }
-*/
+        //
     }
     /**
      * Display the specified resource.

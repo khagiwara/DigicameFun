@@ -99,8 +99,9 @@ return [
     'attributes' => [
         'title' => 'タイトル',
         'message' => 'メッセージ',
-        'file'  => 'アップロード用ファイル'
-        
+        'file'  => 'アップロード用ファイル',
+        'newpassword' => '新しいパスワード',
+        'coment' => 'コメント'
         
         ],
 ];
