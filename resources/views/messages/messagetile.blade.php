@@ -28,7 +28,7 @@ messagetile.blade.php
 	                        </div>
 	                        <div class="panel-body">
 	                            <p class="item-date">{{ $message->create_at }}</p>
-	                            <p class="item-title"><a href="messages/{{ $message->id }}">{{ $message->title }}</a></p>
+	                            <p class="item-title">{{ $message->title }}</p>
 	                            <p class="item-title">{{ $user->name }}</p>
 	                        </div>
 	                    </div>

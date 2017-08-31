@@ -26,6 +26,28 @@ class UsersController extends Controller
         ]);
 
     }
+    public function followlist(Request $request, $id)
+    {
+        $user = User::find($id);
+        echo "<div>UserController:follow</div>";
+                $users = $user->followings()->paginate(10);
+
+        return view('users.index', [
+            'users' => $users,
+        ]);
+
+        
+    }    
+    public function followerlist(Request $request, $id)
+    {
+        $user = User::find($id);
+        echo "<div>UserController:follower</div>";
+        $users = $user->followers()->paginate(10);
+
+        return view('users.index', [
+            'users' => $users,
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.

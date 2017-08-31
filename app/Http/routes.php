@@ -27,6 +27,10 @@ Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController');
+    Route::get('followlist/{id}', 'UsersController@followlist')->name('user.followlist');
+    Route::get('followerlist/{id}', 'UsersController@followerlist')->name('user.flollowerlist');
+    
+    
     
     Route::put('password/{id}', 'UsersController@passwordupdate' )->name('update.passwod');
     Route::put('avatar/{id}',   'UsersController@avatarstore' )->name('avatar.store');
