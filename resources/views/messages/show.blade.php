@@ -49,7 +49,7 @@
 	                    </button>
 	                </div>
 					<!-- ------------------------------------------------ -->
-					@include('message_favarite.favarite_button', ['user' => $user])
+					@include('message_favarite.favarite_button2', ['user' => $user])
 	            </div>
 	        </aside>
 	        <div class="col-xs-7">

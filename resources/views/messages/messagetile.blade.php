@@ -22,8 +22,9 @@ messagetile.blade.php
 	    	<div class="item">
 	                <div class="col-md-3 col-sm-4 col-xs-12">
 	                    <div class="panel panel-default">
-	                        <div class="panel-heading text-center">
+	                        <div class="panel-heading text-center favalitboard">
 		                        <a href="/messages/{{ $message->id }}"><img src="{{ $message->imgpath }}" alt="" class="itemfit"></a>
+								@include('message_favarite.favarite_button', ['user' => $user])
 	                        </div>
 	                        <div class="panel-body">
 	                            <p class="item-date">{{ $message->create_at }}</p>

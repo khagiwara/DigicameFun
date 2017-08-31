@@ -15,7 +15,7 @@
                 <ul class="nav navbar-nav navbar-right">
 					@if (Auth::check())
                         <li>{!! link_to_route('favorite.list', 'お気に入り一覧') !!}</li>
-                        <li>{!! link_to_route('message.list', 'メッセージ一覧') !!}</li>
+                        <!--<li>{!! link_to_route('message.list', 'メッセージ一覧') !!}</li>-->
                         <li>{!! link_to_route('users.index', 'ユーザー') !!}</li>
 						<li>{!! link_to_route('messages.create', '新規メッセージの投稿') !!}</li>
                         <li class="dropdown">
