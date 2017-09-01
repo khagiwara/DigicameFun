@@ -1,11 +1,8 @@
-messagetile.blade.php
-
-
 @extends('layouts.app')
 
 @section('content')
     @if (Auth::check())
-    <div>messagetile.blade.php</div>
+    <!--<div>messagetile.blade.php</div>-->
         
       @if (count($messages) > 0)
  			<div class="container">

@@ -93,7 +93,7 @@ class User extends Model implements AuthenticatableContract,
     {
         $follow_user_ids = $this->followings()->lists('users.id')->toArray();
         
-        print_r( $follow_user_ids );
+//        print_r( $follow_user_ids );
 
         $follow_user_ids[] = $this->id;        
         return Message::whereIn('user_id', $follow_user_ids);

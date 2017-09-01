@@ -17,7 +17,7 @@ class MessageFavoriteControler extends Controller
     public function index()
     {
         //
-        echo "<div>messageFavariteControloer index</div>";
+//        echo "<div>messageFavariteControloer index</div>";
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();

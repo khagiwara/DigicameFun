@@ -29,7 +29,6 @@ class UsersController extends Controller
     public function followlist(Request $request, $id)
     {
         $user = User::find($id);
-        echo "<div>UserController:follow</div>";
                 $users = $user->followings()->paginate(10);
 
         return view('users.index', [
@@ -41,7 +40,6 @@ class UsersController extends Controller
     public function followerlist(Request $request, $id)
     {
         $user = User::find($id);
-        echo "<div>UserController:follower</div>";
         $users = $user->followers()->paginate(10);
 
         return view('users.index', [
@@ -78,7 +76,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
- echo "<div>UsersControoler@show</div>";
+// echo "<div>UsersControoler@show</div>";
         $user = User::find($id);
         
         if( \Auth::User()->id === $user->id ){
@@ -90,7 +88,7 @@ class UsersController extends Controller
             $messages =$user->messages();
             $count_messages = $user->messages()->count();
  
-            echo "count_messages= $count_messages<br>";
+  //          echo "count_messages= $count_messages<br>";
             $data = [
                 'user' => $user,
                 'messages' => $user->messages()->paginate(12),
@@ -251,21 +249,21 @@ class UsersController extends Controller
         ]);
       
           $user = User::find($id);   
- 
-       if (Hash::check($request->password , $user->password)) {
-        
-        echo "パスワード一致";
-            $user->password = bcrypt( $request->paginate);
-            $user->save();
-            $request->session()->flash('flash_message','パスワードは変更されました。');
-            return redirect('/users/'. $user->id ); 
- /*      
-            echo " <div> UserController passwordupdate( Request, id )</div> ";
+             echo " <div> UserController passwordupdate( Request, id )</div> ";
             echo "<pre>";
             print_r( $user->toArray() );
             echo $request->password,"<br>";
             echo $request->newpassword,"<br>";
-            echo $request->newpassword_confirmation,"<br>";   
+            echo $request->newpassword_confirmation,"<br>";  
+       if (Hash::check($request->password , $user->password)) {
+        
+        echo "パスワード一致";
+            $user->password = bcrypt( $request->newpassword);
+            $user->save();
+            $request->session()->flash('flash_message','パスワードは変更されました。');
+            return redirect('/users/'. $user->id ); 
+ /*      
+ 
 */
         }
         else {

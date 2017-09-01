@@ -21,23 +21,6 @@ class MessagesController extends Controller
      */
     public function index()
     {
-        //
-        
-        echo "<div>MessagesController index</div>";
-/*
-        
-        
-   //     $messages = Message::all();
-        $messages = 
-        \DB::table('messages')
-            ->join('users','messages.user_id', '=', 'users.id')
-            ->select('users.*', 'messages.*')
-            ->orderby('messages.updated_at', 'disc')
-            
-            ->get();
-        
-      
-*/  
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
@@ -49,11 +32,7 @@ class MessagesController extends Controller
             ];
         }
         return view('messages.messagetile', $data);        
-        
-        
- 
-                
-        
+
     }
     
     public function messagelist()
@@ -71,7 +50,7 @@ class MessagesController extends Controller
      */
     public function create()
     {
-        echo "<div>MessagesController create</div>";
+//        echo "<div>MessagesController create</div>";
          $message = new Message;
 
         return view('messages.create', [
@@ -114,7 +93,7 @@ class MessagesController extends Controller
         
 
 
-         print_r( $_FILES );      
+ //        print_r( $_FILES );      
         $message = new Message;
         $message->user_id = \Auth::user()->id;
         $message->title = $request->title;
@@ -144,7 +123,7 @@ class MessagesController extends Controller
      */
     public function show($id)
     {
-        echo "<div>MessagesController show</div>";
+//        echo "<div>MessagesController show</div>";
         
         $message = 	// Message::find($id);
          \DB::table('messages')
@@ -210,11 +189,11 @@ echo "</pre>";
      */
     public function destroy($id)
     {
-        echo "public function destroy($id)";
+//        echo "public function destroy($id)";
         $message = Message::find($id);
-        echo "message->user_id=",$message->user_id,"<br>";
+//        echo "message->user_id=",$message->user_id,"<br>";
 
-		echo "Auth::user()->id=" , \Auth::user()->id;
+//		echo "Auth::user()->id=" , \Auth::user()->id;
 
 		if (\Auth::user()->id === $message->user_id) {
             $message->delete();
