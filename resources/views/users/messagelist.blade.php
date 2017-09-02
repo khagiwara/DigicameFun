@@ -19,23 +19,34 @@
 
 {!! $messages->render() !!}
 			@foreach ($messages as $message)
-    		<div class="row listimgbody">
+    			<div class="row listimgbody">
 				    <div class="col-sm-5">
 				        	<div>
 								<img class="itemfit listimg" src="{{ $message->imgpath }}" alt="" height=150>
 							</div>
 				    </div>
 				    <div class="col-sm-7">
+				    	<?php $favarings = $message->favaritings()->count(); ?>
 
-				            <span><b>タイトル：</b>{{ $message->title }}</span>
-							<span class="lm10">posted at 2017/08/23</span>
+				            <span><b>タイトル：</b>{{ $message->title }}</span><br>
+							<span>posted at {{ $message->updated_at }}</span>
+							@if ( $favarings > 0 )	
+								Favarigings <span class="badge">{{ $message->favaritings()->count() }}</span> 
+							@endif
 							<p>{{ $message->message }}</p>
+							@if(  !$message->favaritings()->count()  )
 							<div>
-				         		 <button type="button" class="btn btn-success btn-xs">削除</button> 
+								{!! Form::model($message, ['route' => ['messages.destroy', $message->id], 'method' => 'delete']) !!}
+ 							   		{!! link_to_route('messages.edit', 'このメッセージ編集', ['id' => $message->id],['class' => "btn btn-warning btn-xs messageEdit"]) !!}
+
+ 							   			{!! Form::submit('削除', ['class' => 'btn btn-success btn-xs']) !!}
+
+    							{!! Form::close() !!}				   
 				            </div>
+							@endif
 				   	</div>
-    		</div>
-		@endforeach
+    			</div>
+			@endforeach
 {!! $messages->render() !!}
 
     	</div>   

@@ -2,6 +2,9 @@
 div.clearfix {
     clear: both;
 }
+.ml10px {
+    margin-left: 15px;
+}
 
 .mt5px {
 	margin-top: 5px;
@@ -390,13 +393,72 @@ div.clearfix {
     margin: 40px auto;
 }
 
-
-
-
-
-
 .userfavarite {
     display: inline-block;
     margin: 10px;
     color: red;
+}
+
+.messageEdit {
+    display: inline-block;
+    margin: 10px;
+}
+
+/**************
+    message
+**************/
+#message-left {
+    
+  /*background-color: yellow; */
+  height: auto;  
+  padding-bottom: 10px;
+  padding-top: 10px;
+    
+    
+    
+    
+}
+.avt-aria {
+    margin: 20px;
+
+    
+}
+
+.org-message {
+
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    
+}
+
+.titlemessage {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;	
+}
+.titlemessage span,
+.titlemessage p {
+    padding: 10px;
+}
+
+
+.msg-comment {
+    background-color: #f9f9f9;
+    width: 100%;
+    height: 300px;
+    margin: 10 auto;
+    
+}
+
+.cmt_body {
+    margin-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: dotted 1px #555;
+}
+
+.msg_toukou {
+    margin-left: 15px;
+    margin-top: 10px;
 }

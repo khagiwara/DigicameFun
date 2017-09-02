@@ -41,7 +41,7 @@
 	<div class="container">
 		<div class="row">
 	        <aside class="col-xs-5">
-	            <div class="panel panel-default">
+	            <div>
 					<!-- ------------------------------------------------ -->
 	                <div class="panel-body">
 		                <button class="btn btn-default" data-toggle="modal" data-target="#modal-photo">
@@ -52,60 +52,51 @@
 					@include('message_favarite.favarite_button2', ['user' => $user])
 	            </div>
 	        </aside>
-	        <div class="col-xs-7">
-	      	 	<div style="margin-bottom: 10px">
-		  	 		<!-- --------------------------------------------------
-					// オリジナルメッセージ
-					//--------------------------------------------------- -->
-		        	<div class="media-left" style="padding: 30px;">
-				    	@if( $user->path )
-							<img class="media-object img-rounded" src="{{ $user->path }}" alt="" width=50>
-				        @else
-							<img class="media-object img-rounded" src="{{ Gravatar::src($user->email, 250) }}" alt="" width=50>
-						@endif		        		
-						<!--<img class="media-object img-rounded" src="/image/<?php echo rand(1,17); ?>.png" alt="" width=50>-->
-					</div>
-					<div class="media-body">
-						<div>
-							<a href="#">{{ $message->name }}</a><span class="text-muted">{{ $message->updated_at }}</span>
-						</div>
-						<div>
-							<div class="comment mt5px"><b>{{ $message->title }}</b></div>
-							<p>{{ $message->message }}</p>
-						</div>
-						<div>							
-							<!--@include('user_follow.follow_button', ['user' => $user])-->
-			                @if (Auth::user()->id == $message->user_id)
-			                    {!! Form::open(['route' => ['messages.destroy', $message->id], 'method' => 'delete']) !!}
-			                        {!! Form::submit('削除', ['class' => 'btn btn-danger btn-xs']) !!}
-			                    {!! Form::close() !!}
-			                @endif							
-<!-- 							<button type="button" class="btn btn-success btn-xs">削除</button>  -->
-						</div>						
-					</div>
-				</div>
-		  	 	<div class="panel panel-default">			 
+	        <div class="col-xs-7" id="message-left">
+	        	<div class="org-message">
+		    			<div class="row">
+							    <div class="col-sm-3" class="avt-aria">
+							    	@if( $user->path )
+										<img class="media-object img-rounded" src="{{ $user->path }}" alt="" width=150>
+							        @else
+										<img class="media-object img-rounded" src="{{ Gravatar::src($user->email, 200) }}" alt="" width=150>
+									@endif		        		
+			
+							    </div>
+							    <div class="col-sm-7">
+									<div>
+							            <span class="titlemessage">タイトル：{{ $message->title }}</span>
+										<p><b></b>posted at</b> {{ $message->updated_at }}
+											@if ( $favaritcount > 0 )	
+												Favarigings <span class="badge">{{ $favaritcount }}</span> 
+											@endif										
+										</p>
+										<p  class="titlemessage">{{ $message->message }}</p>
+									</div>
+									@if( !$favaritcount )
+									<div>
+											{!! Form::model($message, ['route' => ['messages.destroy', $message->id], 'method' => 'delete']) !!}
+			 							   		{!! link_to_route('messages.edit', 'このメッセージ編集', ['id' => $message->id],['class' => "btn btn-warning btn-xs messageEdit"]) !!}
+			 							   		{!! Form::submit('削除', ['class' => 'btn btn-success btn-xs']) !!}
+			    							{!! Form::close() !!}				   
+									</div>
+									@endif
+							   	</div>
+		    			</div>
+	        	</div>
+	        	<div class="msg-comment">
+
+
 					<!-- --------------------------------------------------
 					// コメント
 					//--------------------------------------------------- -->
 					@if (count($coments) > 0 )
-					     <div class="modal-header">
-						     <h4 class="ml10px" id="coment_count">コメント{{ count($coments) }}件</h4>
-					      </div>
-						  @foreach ($coments as $coment )
-					      <div class="modal-body" id="comentlist">
-					        <div class="row">
-					          <div class="col-md-12">
-					            <div>
+						<div style="padding: 10px">
+							  @foreach ($coments as $coment )
 					              <div><a  href="#" class="username">{{ $coment->name }}</a> <span class="commentdate">{{ $coment->updated_at }}</span></div>
-					              <div class="comment mt5px">{{ $coment->coment }}</div>
-					
-					            </div>
-					          </div>
-					        </div>
-					 
-					       </div>
-					      @endforeach
+					              <div class="cmt_body">{{ $coment->coment }}</div>
+					    	  @endforeach
+					    <div>
 					      
 					@endif  
 			      
@@ -125,9 +116,9 @@
 		                      </div>
 		                {!! Form::close() !!}
 			 
-					</div>	 
-				</div>			 
-	        </div>
+					</div>
+	        	</div>
+			</div>
 		</div>		
 	</div> 
 

@@ -24,7 +24,7 @@ class MessagesController extends Controller
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
-            $messages = $user->feed_messages()->orderBy('created_at', 'desc')->paginate(12);
+            $messages = $user->feed_messages()->orderBy('updated_at', 'desc')->paginate(12);
             $count_messages = $user->messages()->count();
             $data = [
                 'user' => $user,
@@ -56,12 +56,6 @@ class MessagesController extends Controller
         return view('messages.create', [
             'message' => $message,
         ]);        
-        
-        
-        
-        
-        
-        
     }
 
     /**
@@ -76,24 +70,8 @@ class MessagesController extends Controller
         $this->validate($request, [
 	        'title' => 'required|max:255',
             'message' => 'required|max:255',
-            'file' => [
-                // 必須
-                'required',
-                'mimes:jpeg,png',
-                
-                // アップロードされたファイルであること
-   //             'file',
-                // 最小縦横120px 最大縦横400px
-  //              'dimensions:min_width=120,min_height=120,max_width=400,max_height=400',
-            ]
+            'file' =>   'required|mimes:jpeg,png|max:200',      // jpeg png 限定 2MB　制限
         ]);
-
-        //
-        echo "<pre>";
-        
-
-
- //        print_r( $_FILES );      
         $message = new Message;
         $message->user_id = \Auth::user()->id;
         $message->title = $request->title;
@@ -104,9 +82,7 @@ class MessagesController extends Controller
 			$message->save();
 			echo "<img src=\"/avatar/". $request->file->getClientOriginalName() ,"\">";
 		}
-        
         return redirect('messages');
-        
     }
     /**
      * ファイルアップロード処理
@@ -123,8 +99,11 @@ class MessagesController extends Controller
      */
     public function show($id)
     {
-//        echo "<div>MessagesController show</div>";
-        
+       echo "<div>MessagesController show</div>";
+       $m =  Message::find($id);
+      $favaritingcount =  $m->favaritings()->count();
+   //    $message->favaritings()->count() 
+  //     $favaritingcount = $m->favaritings()->count() 
         $message = 	// Message::find($id);
          \DB::table('messages')
             ->join('users','messages.user_id', '=', 'users.id')
@@ -150,6 +129,7 @@ echo "</pre>";
             'message' => $message[0],
             'coments' => $coments,
             'user'	=> $user,
+            'favaritcount' => $favaritingcount,
         ]);   
 
     
@@ -166,7 +146,10 @@ echo "</pre>";
      */
     public function edit($id)
     {
-        //
+       $message = Message::find($id);
+        return view('messages.edit', [
+            'message' => $message,
+        ]);            
     }
 
     /**
@@ -178,7 +161,32 @@ echo "</pre>";
      */
     public function update(Request $request, $id)
     {
-        //
+        global $_FILES;
+       $message = Message::find($id);
+        if( !$_FILES["file"]["error"] ){
+             $this->validate($request, [
+    	        'title' => 'required|max:255',
+                'message' => 'required|max:255',
+                'file' =>   'required|mimes:jpeg,png|max:200',      // jpeg png 限定 2MB　制限
+            ]);            
+            if ($request->file('file')->isValid([])) {
+    		    $message->imgpath = "/avatar/". $request->file->getClientOriginalName();
+    			$request->file('file')->move(public_path('avatar'), $request->file->getClientOriginalName());
+ //   			echo "<img src=\"/avatar/". $request->file->getClientOriginalName() ,"\">";
+    		}     
+        }
+        else{
+          $this->validate($request, [
+	        'title' => 'required|max:255',
+            'message' => 'required|max:255',
+
+            ]);          
+        }
+        $message->user_id = \Auth::user()->id;
+        $message->title = $request->title;
+        $message->message = $request->message;       
+        $message->save();        
+        return redirect('messages');        
     }
 
     /**
